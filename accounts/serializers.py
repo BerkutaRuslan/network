@@ -45,6 +45,29 @@ class PasswordSerializer(serializers.Serializer):
             raise exceptions.ValidationError(msg)
 
 
+class SignInSerializer(serializers.Serializer):
+    phone = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
+
+    def validate(self, attrs):
+        phone = attrs['phone']
+        password = attrs['password']
+
+        if is_valid_number(phonenumbers_parse(phone, None)):
+            try:
+                user = User.objects.get(phone=phone)
+            except User.DoesNotExist:
+                msg = 'User with provided phone does not exist'
+                raise exceptions.ValidationError(msg)
+            else:
+                if user.check_password(password):
+                    attrs['user'] = user
+                    return attrs
+                else:
+                    msg = 'Wrong password'
+                    raise exceptions.ValidationError(msg)
+
+
 class UserFullSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
