@@ -1,8 +1,13 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 
-from posts.models import Post
+from accounts.serializers import UserFullSerializer
+from posts.models import Post, Likes
 
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = "__all__"
 
 class CreatePostSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=150, required=True)
@@ -17,3 +22,17 @@ class CreatePostSerializer(serializers.Serializer):
         body = attrs['body']
         if title and body:
             return attrs
+
+
+class AnalyticsSerializer(serializers.ModelSerializer):
+    post = PostSerializer(many=False, read_only=True)
+    user = UserFullSerializer(many=False, read_only=True)
+    date = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Likes
+        fields = ['post', 'user', 'date']
+
+    def get_date(self, obj):
+        date = obj.date.strftime('%Y-%m-%d %H:%M:%S')
+        return date
