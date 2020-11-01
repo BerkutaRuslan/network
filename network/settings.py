@@ -11,8 +11,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,7 +45,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'network.urls'
-SESSION_SAVE_EVERY_REQUEST = True
 
 TEMPLATES = [
     {
@@ -120,8 +117,5 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
