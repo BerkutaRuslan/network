@@ -10,6 +10,10 @@ Activate virtualenv: (venv - your virtual environment name)
 ```shell script
 $ source venv/bin/activate
 ```
+Install requirements:
+``` shell script
+$ pip install -r requirements.txt
+```
 To start server got to the project root and run:
 ```shell script
 $ python3 manage.py runserver
