@@ -4,8 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 
-from accounts.models import User
-from accounts.serializers import SignUpSerializer, UserFullSerializer, SignInSerializer
+from accounts.serializers import SignUpSerializer, UserFullSerializer, SignInSerializer, UserActivitySerializer
 
 
 class SignUpView(APIView):
@@ -38,3 +37,13 @@ class SignInView(APIView):
             return Response({'token': token.key, 'user': user_serializer.data}, status=status.HTTP_200_OK)
         else:
             return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserActivityView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserActivitySerializer
+
+    def get(self, request):
+        user = request.user
+        serializer = self.serializer_class(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)

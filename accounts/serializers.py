@@ -80,3 +80,18 @@ class UserFullSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'phone']
+
+
+class UserActivitySerializer(serializers.ModelSerializer):
+    last_login = serializers.SerializerMethodField()
+    last_activity = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['last_login', 'last_activity']
+
+    def get_last_login(self, obj):
+        return obj.last_login.strftime('%Y-%m-%d %H:%M:%S')
+
+    def get_last_activity(self, obj):
+        return obj.last_activity.strftime('%Y-%m-%d %H:%M:%S')
