@@ -4,10 +4,7 @@ import string
 
 import requests
 
-number_of_users = 2
-max_posts_per_user = 10
-max_likes_per_user = 3
-
+from variables_for_script import number_of_users, max_posts_per_user, max_likes_per_user
 
 user_info = []
 user_info_token = []
@@ -60,21 +57,45 @@ def create_posts(max_posts_per_user):
     return print("Logined users created random amount of posts")
 
 
-def like_post():
+    # def like_post(max_likes_per_user):
+    #     made_likes = 0
+    #     for token in user_info_token:
+    #         for post in posts_ids:
+    #             if made_likes < max_likes_per_user:
+    #                 random_bit = random.getrandbits(1)
+    #                 random_boolean = bool(random_bit)
+    #                 if random_boolean:
+    #                     req = requests.post(f'http://localhost:8000/posts/{str(post)}/like',
+    #                                         headers={'Authorization': f"Token {token.get('token')}"})
+    #                     made_likes = made_likes + 1
+    #             else:
+    #                 made_likes = 0,
+    #
+    #     return print("Random posts were liked by users")
+
+
+def like_post(max_likes_per_user):
+    made_likes = 0
     for token in user_info_token:
         for post in posts_ids:
-            random_bit = random.getrandbits(1)
-            random_boolean = bool(random_bit)
-            if random_boolean:
-                req = requests.post(f'http://localhost:8000/posts/{str(post)}/like',
-                                    headers={'Authorization': f"Token {token.get('token')}"})
+            while made_likes < max_likes_per_user:
+                random_bit = random.getrandbits(1)
+                random_boolean = bool(random_bit)
+                if random_boolean:
+                    req = requests.post(f'http://localhost:8000/posts/{str(post)}/like',
+                                        headers={'Authorization': f"Token {token.get('token')}"})
+                    made_likes = made_likes + 1
+            else:
+                made_likes = 0
+                break
+
     return print("Random posts were liked by users")
 
 
 sign_up_user(number_of_users)
 login_users()
 create_posts(max_posts_per_user)
-like_post()
+like_post(max_likes_per_user)
 
 print('When you run this script, firstly we register users, then login them, then create posts and after '
       'randomly liking them ')
