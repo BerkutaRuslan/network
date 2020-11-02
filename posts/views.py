@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from posts.models import Likes, Post
-from posts.serializers import CreatePostSerializer, AnalyticsSerializer
+from posts.serializers import CreatePostSerializer, AnalyticsSerializer, PostSerializer
 
 
 class CreatePostView(APIView):
@@ -14,8 +14,9 @@ class CreatePostView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response({"message": "Post was created!"}, status=status.HTTP_201_CREATED)
+            post = serializer.save(user=request.user)
+            return Response({"message": "Post was created!", 'post': PostSerializer(post).data},
+                            status=status.HTTP_201_CREATED)
         else:
             return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
