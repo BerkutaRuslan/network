@@ -1,6 +1,8 @@
 from django.contrib.auth.password_validation import validate_password
+from django.db import IntegrityError
 from phonenumbers import is_valid_number, parse as phonenumbers_parse
 from rest_framework import serializers, exceptions
+from django.utils.timezone import now
 
 from accounts.models import User
 
@@ -11,8 +13,12 @@ class SignUpSerializer(serializers.Serializer):
     password = serializers.CharField(required=True)
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+        try:
+            user = User.objects.create_user(**validated_data)
+            return user
+        except IntegrityError:
+            msg = {"error": "This username was already taken, please another one"}
+            raise exceptions.ValidationError(msg)
 
     def validate(self, attrs):
         phone = attrs['phone']
@@ -61,6 +67,8 @@ class SignInSerializer(serializers.Serializer):
                 raise exceptions.ValidationError(msg)
             else:
                 if user.check_password(password):
+                    user.last_login = now()
+                    user.save()
                     attrs['user'] = user
                     return attrs
                 else:
