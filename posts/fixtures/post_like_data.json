@@ -1,0 +1,16 @@
+[
+  {"model": "posts.Post",
+    "pk": 1, "fields": {
+    "body": "Hello, this is my first post",
+    "user": 1,
+    "title": "My First Post"
+    }
+  },
+  {"model": "posts.Likes",
+    "pk":1, "fields": {
+    "user": 1,
+    "post": 1,
+    "date": "2020-11-02 11:41:08.542239+02"
+  }}
+]
+

@@ -1,0 +1,9 @@
+[
+  {"model": "accounts.user",
+    "pk": 1, "fields": {
+    "password": "pbkdf2_sha256$216000$QcRAtPA0qvBi$ctr7HhxolTyIyc659Gk9oeK4AU8ybDtzQuF3Clel2VU=",
+    "username": "Test_user",
+    "phone": "+380977551122"
+    }
+  }
+]
