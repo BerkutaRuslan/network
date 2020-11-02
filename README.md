@@ -1,4 +1,4 @@
-##General info
+## General info
 Network API was made with Django Rest Framework
 
 ## Docs
@@ -24,3 +24,5 @@ $ python3 manage.py loaddata user_data.json
 
 $ python3 manage.py loaddata post_like_data.json
 ```
+
+Task # 2 is in script.py file, run it with running django project 
