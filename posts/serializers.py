@@ -9,6 +9,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = "__all__"
 
+
 class CreatePostSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=150, required=True)
     body = serializers.CharField(max_length=2000, required=True)
