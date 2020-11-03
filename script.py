@@ -57,23 +57,6 @@ def create_posts(max_posts_per_user):
     return print("Logined users created random amount of posts")
 
 
-    # def like_post(max_likes_per_user):
-    #     made_likes = 0
-    #     for token in user_info_token:
-    #         for post in posts_ids:
-    #             if made_likes < max_likes_per_user:
-    #                 random_bit = random.getrandbits(1)
-    #                 random_boolean = bool(random_bit)
-    #                 if random_boolean:
-    #                     req = requests.post(f'http://localhost:8000/posts/{str(post)}/like',
-    #                                         headers={'Authorization': f"Token {token.get('token')}"})
-    #                     made_likes = made_likes + 1
-    #             else:
-    #                 made_likes = 0,
-    #
-    #     return print("Random posts were liked by users")
-
-
 def like_post(max_likes_per_user):
     made_likes = 0
     for token in user_info_token:
