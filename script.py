@@ -25,7 +25,7 @@ def sign_up_user(number_of_users):
         username = random_char(10)
         phone = f'+3806349{random_int()}'
         if phone in user_info:
-            phone = f'+3806349{random_int}'
+            phone = f'+3806349{random_int()}'
         req = requests.post("http://localhost:8000/accounts/sign-up-request",
                             data={'username': username, 'phone': phone, 'password': 'qwe123qwer'})
         if req:
